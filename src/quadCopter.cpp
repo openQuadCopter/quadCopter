@@ -58,7 +58,7 @@ void quadCopter::m_init()
 	while(1)
 	{
 		compute();
-		usleep(40*1000);
+		usleep(80*1000);
 		m_throttle++;
 		if(m_throttle > 1400.0)
 			m_throttle = 1400.0;
