@@ -41,7 +41,7 @@ void quadCopter::m_init()
 	m_readData[2] = 0.0;
 
 	for(int i = 0; i<3; i++)
-		m_PID[i]->setTarget(0.0);
+		m_PID[i]->setTarget(6.0);
 
 	pthread_attr_init(&attr);
 	int newprio = -20;
