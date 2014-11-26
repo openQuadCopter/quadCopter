@@ -39,11 +39,11 @@ void quadIMU::readFIFO()
 void quadIMU::getData(double *pose)
 {
 	m_data	= m_imu->getIMUData();
-	RTVector3 *v = m_imu->getMeasuredPose();
+	RTVector3 v = m_imu->getMeasuredPose();
 
-	pose[0] = 180.0 * v->x() / _PI_;
-	pose[1] = 180.0 * v->y() / _PI_;
-	pose[2] = 180.0 * v->z() / _PI_;
+	pose[0] = 180.0 * v.x() / _PI_;
+	pose[1] = 180.0 * v.y() / _PI_;
+	pose[2] = 180.0 * v.z() / _PI_;
 
 	if(pose[0] > 0)
 		pose[0] = -(pose[0] -180.0);
