@@ -54,11 +54,14 @@ void quadCopter::m_init()
 	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
 
-	while(1)
+	double cmd={1200, 1200, 1200, 1200};
+	sendCommand(&cmd);
+	sleep(5);
+	/*while(1)
 	{
 		compute();
 		usleep(100*1000);
-	}
+	}*/
 
 }
 
