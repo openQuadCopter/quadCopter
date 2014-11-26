@@ -53,7 +53,7 @@ bool MotorManager::sendCommandMicro(double *motorcmd)
 	}
 	//printf("sending command...\n");
 	printf("[%d  %d  %d  %d]\n", cmd[0], cmd[1], cmd[2], cmd[3]);
-	return i2c_smbus_write_i2c_block_data(m_i2c_file, I2C_MOTOR_CMD, NB_MOTORS, cmd) >= 0;
+	return i2c_smbus_write_i2c_block_data(m_i2c_file, I2C_MOTOR_CMD, NB_MOTORS * 2, cmd) >= 0;
 }
 
 bool MotorManager::m_init()
