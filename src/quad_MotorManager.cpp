@@ -29,9 +29,8 @@ bool MotorManager::sendCommandInit(int fl, int fr, int br, int bl)
 
 bool MotorManager::sendCommandMicro(int fl, int fr, int br, int bl)
 {
-	//if( m_isInitialized )
-	//{
-	pthread_mutex_lock(m_mutex);
+	pthread_mutex_trylock(m_mutex);
+
 	unsigned char cmd[NB_MOTORS /** 2*/];
 	cmd[0] = (unsigned char)(abs(fl / 100));
 	cmd[1] = (unsigned char)(abs(fl % 100));
@@ -42,16 +41,16 @@ bool MotorManager::sendCommandMicro(int fl, int fr, int br, int bl)
 	cmd[6] = (unsigned char)(abs(bl / 100));
 	cmd[7] = (unsigned char)(abs(bl % 100));*/
 	i2c_smbus_write_i2c_block_data(m_i2c_file, I2C_MOTOR_INIT, NB_MOTORS, cmd);
+
 	pthread_mutex_unlock(m_mutex);
-	//usleep(10*1000);
-	//}
-	//return false;
 }
 
 bool MotorManager::sendCommandMicro(int *motorcmd)
 {
+	pthread_mutex_trylock(m_mutex);
 
-	pthread_mutex_lock(m_mutex);
+	printf("Locking for sending command\n");
+
 	unsigned char cmd[NB_MOTORS * 2];
 	int u = 0;
 	for(int i = 0 ; i < NB_MOTORS ; i++)
@@ -68,6 +67,7 @@ bool MotorManager::sendCommandMicro(int *motorcmd)
 
 	printf("sending command...\n");
 	i2c_smbus_write_i2c_block_data(m_i2c_file, I2C_MOTOR_CMD, NB_MOTORS, cmd);
+	printf("Unlocking for sending command\n");
 
 	pthread_mutex_unlock(m_mutex);
 	//}
@@ -118,7 +118,7 @@ bool MotorManager::m_init_i2c()
 bool MotorManager::m_send_init_cmd()
 {
 
-	pthread_mutex_lock(m_mutex);
+	//pthread_mutex_trylock(m_mutex);
 	sendCommandInit(0, 0, 0, 0);
 	sleep(2);
 
@@ -128,7 +128,7 @@ bool MotorManager::m_send_init_cmd()
 	sendCommandInit(60, 60, 60, 60);
 	sleep(2);
 
-	pthread_mutex_unlock(m_mutex);
+	//pthread_mutex_unlock(m_mutex);
 
 	return true;
 }

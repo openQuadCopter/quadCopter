@@ -47,9 +47,9 @@ void* thread_IMU(void* data)
 	while(1)
 	{
 		pthread_mutex_trylock(imu->getMutex());
-
+		printf("Locking for reading data\n");
 		imu->read();
-
+		printf("Unlocking for reading data\n");
 		pthread_mutex_unlock(imu->getMutex());
 		usleep(10*1000);
 	}
@@ -65,6 +65,7 @@ void quadIMU::read()
 void quadIMU::getData(double *pose)
 {
 	pthread_mutex_lock(getMutex());
+	printf("Locking for getting data\n");
 		m_data	= m_imu->getIMUData();
 
 		pose[0] = 180.0 * m_data.fusionPose.x() / _PI_;
@@ -78,5 +79,7 @@ void quadIMU::getData(double *pose)
 
 		pose[0] *= -1;
 		//printf("POSE : %f  %f  %f\n", pose[0], pose[1], pose[2]);
+		printf("Unocking for getting data\n");
+
 	pthread_mutex_unlock(getMutex());
 }
