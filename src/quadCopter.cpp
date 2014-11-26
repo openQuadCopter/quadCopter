@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <pthread.h>
 
-pthread_mutex_t *mutex;
-pthread_mutexattr_t *mutex_attr;
+pthread_mutex_t mutex;
+pthread_mutexattr_t mutex_attr;
 
 quadCopter::quadCopter()
 {
@@ -19,11 +19,12 @@ quadCopter::~quadCopter()
 
 void quadCopter::m_init()
 {
-	pthread_mutex_init(mutex, mutex_attr);
-	m_imu = new quadIMU(mutex);
+	mutex_attr
+	pthread_mutex_init(&mutex, &mutex_attr);
+	m_imu = new quadIMU(&mutex);
 
 	if( m_i2c_moduleCheck() )
-		m_motorManager = new MotorManager(mutex);
+		m_motorManager = new MotorManager(&mutex);
 	else
 		printf("[QuadCopter] Failed to load i2c module");
 
