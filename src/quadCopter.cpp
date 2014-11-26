@@ -4,8 +4,11 @@
 #include <stdio.h>
 #include <pthread.h>
 
-pthread_mutex_t mutex;
-pthread_mutexattr_t mutex_attr;
+static pthread_attr_t attr;
+sched_param paramThreadProcs;
+static pthread_t threadIMU;
+void* thread_IMU(void* data);
+
 
 quadCopter::quadCopter()
 {
@@ -19,13 +22,15 @@ quadCopter::~quadCopter()
 
 void quadCopter::m_init()
 {
-	pthread_mutex_init(&mutex, &mutex_attr);
-	m_imu = new quadIMU(&mutex);
+	m_mutexI2C = PTHREAD_MUTEX_INITIALIZER;
 
 	if( m_i2c_moduleCheck() )
-		m_motorManager = new MotorManager(&mutex);
+		m_motorManager = new MotorManager();
 	else
 		printf("[QuadCopter] Failed to load i2c module");
+
+
+	m_imu = new quadIMU();
 
 	m_PID[0] = new PIDRoll();
 	m_PID[1] = new PIDPitch();
@@ -38,6 +43,15 @@ void quadCopter::m_init()
 	for(int i = 0; i<3; i++)
 		m_PID[i]->setTarget(0.0);
 
+	pthread_attr_init(&attr);
+	int newprio = -20;
+	paramThreadProcs.sched_priority = newprio;
+	pthread_attr_setschedparam (&attr, &paramThreadProcs);
+	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+	pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
+	pthread_attr_setscope(&attr, PTHREAD_SCOPE_PROCESS);
+
+	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
 
 	while(1)
@@ -47,14 +61,39 @@ void quadCopter::m_init()
 
 }
 
+void* thread_IMU(void* data)
+{
+	quadCopter *quad = (quadCopter *)data;
+	while(1)
+	{
+		pthread_mutex_trylock(quad->getMutex());
+		quad->readIMU();
+		pthread_mutex_unlock(quad->getMutex());
+		usleep(10*1000);
+	}
+}
+
+void quadCopter::readIMU()
+{
+	m_imu->readFIFO();
+}
+
+void quadCopter::getDataIMU()
+{
+	pthread_mutex_lock(&m_mutexI2C);
+	m_imu->getData(m_readData);
+	pthread_mutex_unlock(&m_mutexI2C);
+}
+
 void quadCopter::compute()
 {
-	m_imu->getData(m_readData);
+	getDataIMU();
 
-	double output = m_PID[0]->compute(m_readData[0], 0.1);
+	double output = m_PID[0]->compute(m_readData[0], 0.1); // getting output of PIDRoll
 
 	int throttle = 1300;
 	int cmd[4] = {0, 0, 0, 0};
+
 	cmd[0] = throttle - output;
 	cmd[1] = throttle + output;
 	cmd[2] = throttle + output;
@@ -65,7 +104,10 @@ void quadCopter::compute()
 
 void quadCopter::sendCommand(int *cmd)
 {
+	pthread_mutex_lock(&m_mutexI2C);
 	m_motorManager->sendCommandMicro(cmd);
+	pthread_mutex_unlock(&m_mutexI2C);
+	usleep(10*1000);
 }
 
 bool quadCopter::m_i2c_moduleCheck()

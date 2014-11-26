@@ -8,7 +8,8 @@
 #include <quad_PIDYaw.h>
 #include <quad_IMU.h>
 
-// #include <linux/module.h>
+#include <pthread.h>
+
 #define _PI_ 3.14159265
 
 class quadCopter
@@ -20,6 +21,10 @@ public:
 	void sendCommand(int *cmd);
 	void compute();
 
+	void readIMU();
+	void getDataIMU();
+	pthread_mutex_t *getMutex(){return &m_mutexI2C;};
+
 private:
 	void m_init();
 	bool m_i2c_moduleCheck();
@@ -27,6 +32,8 @@ private:
 	MotorManager	*m_motorManager;
 	quadIMU			*m_imu;
 	PID 			*m_PID[3];
+
+	pthread_mutex_t m_mutexI2C;
 
 	double			m_readData[3];
 };

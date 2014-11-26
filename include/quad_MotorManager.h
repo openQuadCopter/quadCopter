@@ -15,7 +15,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <pthread.h>
 
 #define NB_MOTORS		4
 #define	I2C_FILENAME	"/dev/i2c-1"
@@ -33,7 +32,7 @@
 class MotorManager
 {
 	public:
-	MotorManager(pthread_mutex_t *mutex);
+	MotorManager();
 	~MotorManager();
 	
 	bool sendCommandInit(int fl, int fr, int br, int bl);
@@ -46,7 +45,6 @@ class MotorManager
 	int		m_motorCmd_prev[NB_MOTORS];	// previous cmd [front left, front right, back right, back left]
 	bool	m_isInitialized;
 	int		m_i2c_file;
-	pthread_mutex_t	*m_mutex;
 	
 	bool m_init();
 	bool m_init_i2c();
