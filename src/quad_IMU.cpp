@@ -32,7 +32,7 @@ bool quadIMU::m_init()
 void quadIMU::readFIFO()
 {
 	m_imu->IMURead();
-	printf("Reading IMU\n");
+	//printf("Reading IMU\n");
 }
 
 void quadIMU::getData(double *pose)
@@ -49,5 +49,5 @@ void quadIMU::getData(double *pose)
 		pose[0] -= 180.0;
 
 	pose[0] *= -1;
-	//printf("POSE : %f  %f  %f\n", pose[0], pose[1], pose[2]);
+	printf("POSE : %f  %f  %f\n", pose[0], pose[1], pose[2]);
 }

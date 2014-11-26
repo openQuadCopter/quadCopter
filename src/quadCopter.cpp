@@ -69,9 +69,9 @@ void* thread_IMU(void* data)
 	while(1)
 	{
 		pthread_mutex_lock(quad->getMutex());
-		printf("Locking READ\n");
+		//printf("Locking READ\n");
 		quad->readIMU();
-		printf("Unlocking READ\n\n");
+		//printf("Unlocking READ\n\n");
 		pthread_mutex_unlock(quad->getMutex());
 		usleep(10*1000);
 	}
@@ -90,7 +90,7 @@ void quadCopter::getDataIMU()
 void quadCopter::compute()
 {
 	pthread_mutex_lock(&m_mutexI2C);
-	printf("Locking COMPUTE\n");
+	//printf("Locking COMPUTE\n");
 	getDataIMU();
 
 	double output = m_PID[0]->compute(m_readData[0], 0.1); // getting output of PIDRoll
@@ -105,7 +105,7 @@ void quadCopter::compute()
 
 	sendCommand(cmd);
 
-	printf("Unlocking COMPUTE\n\n");
+	//printf("Unlocking COMPUTE\n\n");
 	pthread_mutex_unlock(&m_mutexI2C);
 }
 
