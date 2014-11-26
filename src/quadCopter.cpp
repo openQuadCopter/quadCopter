@@ -51,6 +51,7 @@ void quadCopter::m_init()
 	pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
 	pthread_attr_setscope(&attr, PTHREAD_SCOPE_PROCESS);
 
+	sleep(6);
 	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
 
