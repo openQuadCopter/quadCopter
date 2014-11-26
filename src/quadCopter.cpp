@@ -19,7 +19,6 @@ quadCopter::~quadCopter()
 
 void quadCopter::m_init()
 {
-	mutex_attr
 	pthread_mutex_init(&mutex, &mutex_attr);
 	m_imu = new quadIMU(&mutex);
 
