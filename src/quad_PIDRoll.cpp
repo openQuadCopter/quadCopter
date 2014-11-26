@@ -23,7 +23,7 @@ void PIDRoll::m_init()
 {
 	m_error_prev = m_error = m_error_sum = 0.0;
 	m_Kp = 2.0;
-	m_Ki = 0.01;
+	m_Ki = 0.1;
 	m_Kd = 0.001;
 	m_value = m_target = m_output = m_dt = 0.0;
 }
@@ -46,7 +46,7 @@ double PIDRoll::compute(double value, double dt)
 	double I = m_Ki * m_error_sum;
 	double D = m_Kd * ((m_error - m_error_prev) / m_dt);
 
-	m_output = P;// + I + D;
+	m_output = P + I ;//+ D;
 	printf("PIDRoll : %f %f\n", value, m_output);
 
 	return m_output;
