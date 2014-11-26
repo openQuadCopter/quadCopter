@@ -98,8 +98,12 @@ void quadCopter::compute()
 	double throttle = 1500.0;
 	double cmd[4] = {0.0, 0.0, 0.0, 0.0};
 
-	cmd[0] = throttle - output;
+	/*cmd[0] = throttle - output;
 	cmd[1] = throttle + output;
+	cmd[2] = throttle + output;
+	cmd[3] = throttle - output;*/
+	cmd[0] = 1400.0;
+	cmd[1] = 1400.0;
 	cmd[2] = throttle + output;
 	cmd[3] = throttle - output;
 
