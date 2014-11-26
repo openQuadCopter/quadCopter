@@ -32,16 +32,16 @@ bool MotorManager::sendCommandMicro(int fl, int fr, int br, int bl)
 	//if( m_isInitialized )
 	//{
 	pthread_mutex_lock(m_mutex);
-	unsigned char cmd[NB_MOTORS * 2];
+	unsigned char cmd[NB_MOTORS /** 2*/];
 	cmd[0] = (unsigned char)(abs(fl / 100));
 	cmd[1] = (unsigned char)(abs(fl % 100));
 	cmd[2] = (unsigned char)(abs(fr / 100));
 	cmd[3] = (unsigned char)(abs(fr % 100));
-	cmd[4] = (unsigned char)(abs(br / 100));
+	/*cmd[4] = (unsigned char)(abs(br / 100));
 	cmd[5] = (unsigned char)(abs(br % 100));
 	cmd[6] = (unsigned char)(abs(bl / 100));
-	cmd[7] = (unsigned char)(abs(bl % 100));
-	i2c_smbus_write_i2c_block_data(m_i2c_file, I2C_MOTOR_CMD, NB_MOTORS, cmd);
+	cmd[7] = (unsigned char)(abs(bl % 100));*/
+	i2c_smbus_write_i2c_block_data(m_i2c_file, I2C_MOTOR_INIT, NB_MOTORS, cmd);
 	pthread_mutex_unlock(m_mutex);
 	//usleep(10*1000);
 	//}
