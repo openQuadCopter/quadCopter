@@ -22,8 +22,8 @@ PIDRoll::~PIDRoll()
 void PIDRoll::m_init()
 {
 	m_error_prev = m_error = m_error_sum = 0.0;
-	m_Kp = 1.8;
-	m_Ki = 0.5;
+	m_Kp = 1.2;
+	m_Ki = 0.8;
 	m_Kd = 0.001;
 	m_value = m_target = m_output = m_dt = 0.0;
 }
