@@ -47,7 +47,7 @@ double PIDRoll::compute(double value, double dt)
 	double D = m_Kd * ((m_error - m_error_prev) / m_dt);
 
 	m_output = P;// + I + D;
-	printf("PIDRoll : %f\n", m_output);
+	//printf("PIDRoll : %f\n", m_output);
 
 	return m_output;
 }

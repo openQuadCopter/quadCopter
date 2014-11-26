@@ -48,5 +48,5 @@ void quadIMU::getData(double *pose)
 		pose[0] = -(pose[0] -180.0);
 	else
 		pose[0] = -(pose[0] + 180.0);
-	printf("POSE : %f  %f  %f\n", pose[0], pose[1], pose[2]);
+	//printf("POSE : %f  %f  %f\n", pose[0], pose[1], pose[2]);
 }

@@ -38,6 +38,7 @@ bool MotorManager::sendCommandMicro(int fl, int fr, int br, int bl)
 
 bool MotorManager::sendCommandMicro(double *motorcmd)
 {
+	printf("[%f  %f  %f  %f]\n", motorcmd[0], motorcmd[1], motorcmd[2], motorcmd[3]);
 	unsigned char cmd[NB_MOTORS * 2];
 	int u = 0;
 	for(int i = 0 ; i < NB_MOTORS ; i++)
