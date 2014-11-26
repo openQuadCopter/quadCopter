@@ -50,7 +50,6 @@ void quadCopter::m_init()
 	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 	pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
 	pthread_attr_setscope(&attr, PTHREAD_SCOPE_PROCESS);
-
 	//sleep(6);
 	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
@@ -58,7 +57,7 @@ void quadCopter::m_init()
 	while(1)
 	{
 		compute();
-		usleep(90*1000);
+		usleep(100*1000);
 	}
 
 }
@@ -69,9 +68,9 @@ void* thread_IMU(void* data)
 	while(1)
 	{
 		pthread_mutex_lock(quad->getMutex());
-		//printf("Locking READ\n");
+
 		quad->readIMU();
-		//printf("Unlocking READ\n\n");
+
 		pthread_mutex_unlock(quad->getMutex());
 		usleep(5*1000);
 	}
@@ -90,29 +89,27 @@ void quadCopter::getDataIMU()
 void quadCopter::compute()
 {
 	pthread_mutex_lock(&m_mutexI2C);
-	//printf("Locking COMPUTE\n");
+
 	getDataIMU();
 
-	double output = m_PID[0]->compute(m_readData[0], 0.1); // getting output of PIDRoll
+	double output = m_PID[0]->compute(m_readData[0], 0.09); // getting output of PIDRoll
 
 	double throttle = 1400.0;
 	double cmd[4] = {0.0, 0.0, 0.0, 0.0};
 
-	cmd[0] = throttle;// - output;
-	cmd[1] = throttle;// + output;
-	cmd[2] = throttle;// + output;
-	cmd[3] = throttle;// - output;
+	cmd[0] = throttle - output;
+	cmd[1] = throttle + output;
+	cmd[2] = throttle + output;
+	cmd[3] = throttle - output;
 
 	sendCommand(cmd);
 
-	//printf("Unlocking COMPUTE\n\n");
 	pthread_mutex_unlock(&m_mutexI2C);
 }
 
 void quadCopter::sendCommand(double *cmd)
 {
 	m_motorManager->sendCommandMicro(cmd);
-	usleep(10*1000);
 }
 
 bool quadCopter::m_i2c_moduleCheck()
