@@ -92,7 +92,7 @@ void quadCopter::getDataIMU()
 
 void quadCopter::compute()
 {
-	pthread_mutex_lock(&m_mutexI2C);
+	pthread_mutex_trylock(&m_mutexI2C);
 
 	getDataIMU();
 
