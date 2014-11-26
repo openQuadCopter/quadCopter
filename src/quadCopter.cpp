@@ -76,7 +76,7 @@ void* thread_IMU(void* data)
 		quad->readIMU();
 
 		pthread_mutex_unlock(quad->getMutex());
-		usleep(10*1000);
+		usleep(5*1000);
 	}
 }
 
