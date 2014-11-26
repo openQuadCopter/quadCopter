@@ -51,7 +51,7 @@ void quadCopter::m_init()
 	pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
 	pthread_attr_setscope(&attr, PTHREAD_SCOPE_PROCESS);
 
-	sleep(6);
+	//sleep(6);
 	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
 
@@ -73,7 +73,7 @@ void* thread_IMU(void* data)
 		quad->readIMU();
 		//printf("Unlocking READ\n\n");
 		pthread_mutex_unlock(quad->getMutex());
-		usleep(10*1000);
+		usleep(5*1000);
 	}
 }
 

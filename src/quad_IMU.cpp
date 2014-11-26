@@ -43,11 +43,9 @@ void quadIMU::getData(double *pose)
 	pose[1] = 180.0 * m_data.fusionPose.y() / _PI_;
 	pose[2] = 180.0 * m_data.fusionPose.z() / _PI_;
 
-	if(pose[0] < 0)
-		pose[0] += 180.0;
+	if(pose[0] > 0)
+		pose[0] = -(pose[0] -180.0);
 	else
-		pose[0] -= 180.0;
-
-	pose[0] *= -1;
+		pose[0] = -(pose[0] + 180.0);
 	printf("POSE : %f  %f  %f\n", pose[0], pose[1], pose[2]);
 }
