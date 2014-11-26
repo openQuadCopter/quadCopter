@@ -58,7 +58,7 @@ void quadCopter::m_init()
 	while(1)
 	{
 		compute();
-		usleep(10*1000);
+		usleep(60*1000);
 	}
 
 }
@@ -71,7 +71,7 @@ void* thread_IMU(void* data)
 		pthread_mutex_lock(quad->getMutex());
 		printf("Locking READ\n");
 		quad->readIMU();
-		printf("Unlocking READ\n");
+		printf("Unlocking READ\n\n");
 		pthread_mutex_unlock(quad->getMutex());
 		usleep(10*1000);
 	}
@@ -105,7 +105,7 @@ void quadCopter::compute()
 
 	sendCommand(cmd);
 
-	printf("Unlocking COMPUTE\n");
+	printf("Unlocking COMPUTE\n\n");
 	pthread_mutex_unlock(&m_mutexI2C);
 }
 
