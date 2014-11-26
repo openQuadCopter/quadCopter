@@ -54,8 +54,8 @@ void quadCopter::m_init()
 	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
 
-	double cmd={1200.0, 1200.0, 1200.0, 1200.0};
-	sendCommand(&cmd);
+	double cmd[4]={1200.0, 1200.0, 1200.0, 1200.0};
+	sendCommand(cmd);
 	sleep(5);
 	/*while(1)
 	{
