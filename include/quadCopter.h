@@ -36,6 +36,7 @@ private:
 	pthread_mutex_t m_mutexI2C;
 
 	double			m_readData[3];
+	double 			m_throttle;
 };
 
 #endif /* QUADCOPTER_H */

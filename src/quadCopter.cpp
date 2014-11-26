@@ -53,10 +53,15 @@ void quadCopter::m_init()
 	//sleep(6);
 	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
+	m_throttle = 1190.0;
+
 	while(1)
 	{
 		compute();
 		usleep(40*1000);
+		m_throttle++;
+		if(m_throttle > 1400.0)
+			m_throttle = 1400.0;
 	}
 
 }
@@ -92,14 +97,12 @@ void quadCopter::compute()
 	getDataIMU();
 
 	double output = m_PID[0]->compute(m_readData[0], 0.09); // getting output of PIDRoll
-
-	double throttle = 1400.0;
 	double cmd[4] = {0.0, 0.0, 0.0, 0.0};
 
-	cmd[0] = throttle - output;
-	cmd[1] = throttle + output;
-	cmd[2] = throttle + output;
-	cmd[3] = throttle - output;
+	cmd[0] = m_throttle - output;
+	cmd[1] = m_throttle + output;
+	cmd[2] = m_throttle + output;
+	cmd[3] = m_throttle - output;
 
 	sendCommand(cmd);
 
