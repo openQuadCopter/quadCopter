@@ -58,7 +58,7 @@ void quadCopter::m_init()
 	while(1)
 	{
 		compute();
-		usleep(60*1000);
+		usleep(90*1000);
 	}
 
 }
@@ -95,17 +95,13 @@ void quadCopter::compute()
 
 	double output = m_PID[0]->compute(m_readData[0], 0.1); // getting output of PIDRoll
 
-	double throttle = 1500.0;
+	double throttle = 1400.0;
 	double cmd[4] = {0.0, 0.0, 0.0, 0.0};
 
-	/*cmd[0] = throttle - output;
-	cmd[1] = throttle + output;
-	cmd[2] = throttle + output;
-	cmd[3] = throttle - output;*/
-	cmd[0] = 1400.0;
-	cmd[1] = 1400.0;
-	cmd[2] = throttle + output;
-	cmd[3] = throttle - output;
+	cmd[0] = throttle;// - output;
+	cmd[1] = throttle;// + output;
+	cmd[2] = throttle;// + output;
+	cmd[3] = throttle;// - output;
 
 	sendCommand(cmd);
 
