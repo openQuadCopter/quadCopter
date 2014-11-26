@@ -36,7 +36,7 @@ bool MotorManager::sendCommandMicro(int fl, int fr, int br, int bl)
 	return i2c_smbus_write_i2c_block_data(m_i2c_file, I2C_MOTOR_INIT, NB_MOTORS, cmd) >= 0;
 }
 
-bool MotorManager::sendCommandMicro(int *motorcmd)
+bool MotorManager::sendCommandMicro(double *motorcmd)
 {
 	unsigned char cmd[NB_MOTORS * 2];
 	int u = 0;
