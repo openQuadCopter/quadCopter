@@ -6,7 +6,7 @@ int main()
 {
 	printf("######################################\n");
 	printf("            QUADCOPTER                \n\n");
-	quadCopter * test = new quadCopter();
+	//quadCopter * test = new quadCopter();
 	
 	/*for(int i = -10; i < 11; i++)
 	{
@@ -15,7 +15,7 @@ int main()
 		printf("###########################\n");
 	}*/
 
-	/*RTIMUSettings *settings = new RTIMUSettings((char *)"RTIMULib.ini");
+	RTIMUSettings *settings = new RTIMUSettings((char *)"RTIMULib.ini");
 	RTIMU *imu = RTIMU::createIMU(settings);
 	imu->IMUInit();
 
@@ -25,8 +25,8 @@ int main()
 	{
 		imu->IMURead();
 		data = imu->getIMUData();
-		printf("DATA : %f %f %f \n", data.fusionPose.x(), data.fusionPose.y(), data.fusionPose.z());
+		printf("DATA : %f %f %f \n", 180.0 * data.fusionPose.x() / _PI_, data.fusionPose.y(), data.fusionPose.z());
 	}
-*/
+
 	return 0;
 }
