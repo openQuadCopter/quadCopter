@@ -17,11 +17,15 @@
 class quadIMU
 {
 public:
-	quadIMU(){ m_init(); };
+	quadIMU(pthread_mutex_t *mutex)
+	{
+		mutexIMU = mutex;
+		m_init();
+	};
 	virtual ~quadIMU();
 	void getData(double *pose);
 
-	pthread_mutex_t* getMutex(){return &mutexIMU;};
+	pthread_mutex_t* getMutex(){return mutexIMU;};
 	void read();
 
 private:
@@ -29,7 +33,7 @@ private:
 	RTIMUSettings 	*m_settings;
 	RTIMU		 	*m_imu;
 	RTIMU_DATA 		 m_data;
-	pthread_mutex_t	 mutexIMU;
+	pthread_mutex_t	*mutexIMU;
 
 };
 
