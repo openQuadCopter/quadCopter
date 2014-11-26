@@ -1,0 +1,53 @@
+2014-11-21  xavier  <xavier@localhost.localdomain>
+
+	* .cproject: New file.
+	* .project: New file.
+	* .settings/language.settings.xml: New file.
+	* include/quad_MotorManager.h: New file.
+	* src/quad_MotorManager.cpp: New file.
+	* thirdParty/CMakeLists.txt: New file.
+	* thirdParty/RTIMU/CMakeLists.txt: New file.
+	* thirdParty/RTIMU/RTFusion.cpp: New file.
+	* thirdParty/RTIMU/RTFusion.h: New file.
+	* thirdParty/RTIMU/RTFusionKalman4.cpp: New file.
+	* thirdParty/RTIMU/RTFusionKalman4.h: New file.
+	* thirdParty/RTIMU/RTFusionRTQF.cpp: New file.
+	* thirdParty/RTIMU/RTFusionRTQF.h: New file.
+	* thirdParty/RTIMU/RTIMU.cpp: New file.
+	* thirdParty/RTIMU/RTIMU.h: New file.
+	* thirdParty/RTIMU/RTIMUAccelCal.cpp: New file.
+	* thirdParty/RTIMU/RTIMUAccelCal.h: New file.
+	* thirdParty/RTIMU/RTIMUCalDefs.h: New file.
+	* thirdParty/RTIMU/RTIMUGD20HM303D.cpp: New file.
+	* thirdParty/RTIMU/RTIMUGD20HM303D.h: New file.
+	* thirdParty/RTIMU/RTIMUGD20M303DLHC.cpp: New file.
+	* thirdParty/RTIMU/RTIMUGD20M303DLHC.h: New file.
+	* thirdParty/RTIMU/RTIMUHal.cpp: New file.
+	* thirdParty/RTIMU/RTIMUHal.h: New file.
+	* thirdParty/RTIMU/RTIMULIB\ LICENSE: New file.
+	* thirdParty/RTIMU/RTIMULib.h: New file.
+	* thirdParty/RTIMU/RTIMULib.pri: New file.
+	* thirdParty/RTIMU/RTIMULibDefs.h: New file.
+	* thirdParty/RTIMU/RTIMULSM9DS0.cpp: New file.
+	* thirdParty/RTIMU/RTIMULSM9DS0.h: New file.
+	* thirdParty/RTIMU/RTIMUMagCal.cpp: New file.
+	* thirdParty/RTIMU/RTIMUMagCal.h: New file.
+	* thirdParty/RTIMU/RTIMUMPU9150.cpp: New file.
+	* thirdParty/RTIMU/RTIMUMPU9150.h: New file.
+	* thirdParty/RTIMU/RTIMUMPU9250.cpp: New file.
+	* thirdParty/RTIMU/RTIMUMPU9250.h: New file.
+	* thirdParty/RTIMU/RTIMUNull.cpp: New file.
+	* thirdParty/RTIMU/RTIMUNull.h: New file.
+	* thirdParty/RTIMU/RTIMUSettings.cpp: New file.
+	* thirdParty/RTIMU/RTIMUSettings.h: New file.
+	* thirdParty/RTIMU/RTMath.cpp: New file.
+	* thirdParty/RTIMU/RTMath.h: New file.
+	* CMakeLists.txt: 
+	* src/CMakeLists.txt: 
+	* src/main.cpp (main): 
+	* src/quad_Motor.cpp (m_init): 
+	(Motor::~Motor): 
+	(Motor::m_init): 
+	(setSpeed): 
+	(Motor::setSpeed): 
+	(Motor::reset): 

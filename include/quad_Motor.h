@@ -1,8 +1,8 @@
 #ifndef QUAD_MOTOR_H
 #define QUAD_MOTOR_H
 
-#define		MIN_SPEED	64
-#define		MAX_SPEED	170
+#define		MIN_SPEED	60
+#define		MAX_SPEED	117
 
 class Motor
 {

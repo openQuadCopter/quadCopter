@@ -11,18 +11,18 @@ Motor::Motor()
 
 Motor::~Motor()
 {
-	
+
 }
 
 bool Motor::m_init()
 {
 	m_isInitialized = false;
 	setSpeed(MIN_SPEED);
-		
+
 	m_isInitialized = true;
 	return m_isInitialized;
 }
-	
+
 void Motor::setSpeed(unsigned int speed)
 {
 	if(speed < MIN_SPEED)
@@ -31,7 +31,7 @@ void Motor::setSpeed(unsigned int speed)
 		m_speed = MAX_SPEED;
 	else
 		m_speed = speed;
-		
+
 	m_pendingCmd = true;
 }
 
@@ -52,5 +52,5 @@ bool Motor::isReady()
 
 bool Motor::reset()
 {
-	
+	return true;
 }
