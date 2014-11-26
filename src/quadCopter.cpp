@@ -80,13 +80,12 @@ void quadCopter::readIMU()
 
 void quadCopter::getDataIMU()
 {
-	pthread_mutex_lock(&m_mutexI2C);
 	m_imu->getData(m_readData);
-	pthread_mutex_unlock(&m_mutexI2C);
 }
 
 void quadCopter::compute()
 {
+	pthread_mutex_lock(&m_mutexI2C);
 	getDataIMU();
 
 	double output = m_PID[0]->compute(m_readData[0], 0.1); // getting output of PIDRoll
@@ -100,13 +99,12 @@ void quadCopter::compute()
 	cmd[3] = throttle - output;
 
 	sendCommand(cmd);
+	pthread_mutex_unlock(&m_mutexI2C);
 }
 
 void quadCopter::sendCommand(int *cmd)
 {
-	pthread_mutex_lock(&m_mutexI2C);
 	m_motorManager->sendCommandMicro(cmd);
-	pthread_mutex_unlock(&m_mutexI2C);
 	usleep(10*1000);
 }
 
