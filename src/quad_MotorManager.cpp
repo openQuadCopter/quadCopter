@@ -47,8 +47,8 @@ bool MotorManager::sendCommandMicro(double *motorcmd)
 		if(motorcmd[i] < MOTOR_MIN_CMD)
 			motorcmd[i] = MOTOR_MIN_CMD;
 
-		cmd[u] = (unsigned char)(abs(motorcmd[i] / 100));
-		cmd[u+1] = (unsigned char)(abs(motorcmd[i] % 100));;
+		cmd[u] = (unsigned char)(abs((int)(motorcmd[i]) / 100));
+		cmd[u+1] = (unsigned char)(abs((int)(motorcmd[i]) % 100));;
 		u += 2;
 	}
 	//printf("sending command...\n");
