@@ -18,7 +18,7 @@ public:
 	quadCopter();
 	~quadCopter();
 
-	void sendCommand(int *cmd);
+	void sendCommand(double *cmd);
 	void compute();
 
 	void readIMU();

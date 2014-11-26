@@ -95,8 +95,8 @@ void quadCopter::compute()
 
 	double output = m_PID[0]->compute(m_readData[0], 0.1); // getting output of PIDRoll
 
-	int throttle = 1500;
-	int cmd[4] = {0, 0, 0, 0};
+	double throttle = 1500.0;
+	double cmd[4] = {0.0, 0.0, 0.0, 0.0};
 
 	cmd[0] = throttle - output;
 	cmd[1] = throttle + output;
@@ -109,7 +109,7 @@ void quadCopter::compute()
 	pthread_mutex_unlock(&m_mutexI2C);
 }
 
-void quadCopter::sendCommand(int *cmd)
+void quadCopter::sendCommand(double *cmd)
 {
 	m_motorManager->sendCommandMicro(cmd);
 	usleep(10*1000);

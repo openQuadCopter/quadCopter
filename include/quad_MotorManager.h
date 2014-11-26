@@ -36,7 +36,7 @@ class MotorManager
 	~MotorManager();
 	
 	bool sendCommandInit(int fl, int fr, int br, int bl);
-	bool sendCommandMicro(int *motorcmd);
+	bool sendCommandMicro(double *motorcmd);
 	bool sendCommandMicro(int fl, int fr, int br, int bl);
 	
 	
