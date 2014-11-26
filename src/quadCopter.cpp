@@ -41,7 +41,7 @@ void quadCopter::m_init()
 	m_readData[2] = 0.0;
 
 	for(int i = 0; i<3; i++)
-		m_PID[i]->setTarget(6.0);
+		m_PID[i]->setTarget(0.0);
 
 	pthread_attr_init(&attr);
 	int newprio = -20;
@@ -95,7 +95,7 @@ void quadCopter::compute()
 
 	double output = m_PID[0]->compute(m_readData[0], 0.1); // getting output of PIDRoll
 
-	int throttle = 1300;
+	int throttle = 1500;
 	int cmd[4] = {0, 0, 0, 0};
 
 	cmd[0] = throttle - output;
