@@ -19,11 +19,14 @@ bool quadIMU::m_init()
 	bool val = false;
 	m_settings = new RTIMUSettings((char *)"RTIMULib.ini");
 	m_imu = RTIMU::createIMU(m_settings);
-	//m_imu->setAccelEnable(true);
-	//m_imu->setGyroEnable(true);
+	m_imu->setAccelEnable(true);
+	m_imu->setGyroEnable(true);
 	m_imu->setCompassEnable(false);
 	//m_imu->setSampleRate(500);
 	val = m_imu->IMUInit();
+	m_imu->setAccelEnable(true);
+	m_imu->setGyroEnable(true);
+	m_imu->setCompassEnable(false);
 
 	return val;
 }
