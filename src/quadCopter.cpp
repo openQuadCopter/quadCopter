@@ -44,12 +44,12 @@ void quadCopter::m_init()
 		m_PID[i]->setTarget(0.0);
 
 	pthread_attr_init(&attr);
-	int newprio = -20;
+	int newprio = 20;
 	paramThreadProcs.sched_priority = newprio;
 	pthread_attr_setschedparam (&attr, &paramThreadProcs);
 	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 	pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
-	pthread_attr_setscope(&attr, PTHREAD_SCOPE_PROCESS);
+	pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
 	//sleep(6);
 	pthread_create(&threadIMU, &attr, thread_IMU, this);
 
