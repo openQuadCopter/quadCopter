@@ -32,7 +32,7 @@ bool quadIMU::m_init()
 
 void quadIMU::readFIFO()
 {
-	m_imu->IMURead();
+	while(!m_imu->IMURead()){}
 	//printf("Reading IMU\n");
 }
 
